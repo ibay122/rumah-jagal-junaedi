@@ -14,8 +14,8 @@
     </div>
 
     @if ($message = Session::get('success'))
-        <div class="container alert alert-success text-center" style="margin-top: 12px; margin-bottom: 12px;">
-            <p>Data berhasil ditambahkan!</p>
+        <div class="container alert alert-success text-center" style="margin-top: 12px;">
+            <p>Data telah berubah!</p>
         </div>
     @endif
 
@@ -29,6 +29,7 @@
                     <th>Nama</th>
                     <th>Keperluan</th>
                     <th>Dibuat Pada</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,7 +40,27 @@
                     <td>{{ $tamu->waktu }}</td>
                     <td>{{ $tamu->nama }}</td>
                     <td>{{ $tamu->keperluan }}</td>
-                    <td>{{ $tamu->created_at }}</td>        
+                    <td>{{ $tamu->created_at }}</td>
+                    <td>
+                    <form action="{{ route('tamu.destroy', $tamu) }}" method="POST">
+
+                        <a href="{{ route('tamu.show', $tamu) }}" title="show">
+                            <i class="fas fa-eye text-success  fa-lg">SHOW</i>
+                        </a>
+
+                        <a href="{{ route('tamu.edit', $tamu) }}">
+                            <i class="fas fa-edit  fa-lg">EDIT</i>
+                        </a>
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit" title="delete">
+                            <i class="fas fa-trash fa-lg text-danger">DELETE</i>
+                        </button>
+                    </form>
+                </td>
+        
                 </tr>
             @endforeach
             </tbody>
